@@ -90,6 +90,13 @@ public class WindowController {
 		windowDTO.setName(window.getName());
 		windowDTO.setDescription(window.getDescription());
 		windowDTO.setHelp(window.getHelp());
+		windowDTO.setWindowtype(window.getWindowtype());
+		windowDTO.setIssotrx(window.getIssotrx());
+		windowDTO.setEntitytype(window.getEntitytype());
+		windowDTO.setProcessing(window.getProcessing());
+		windowDTO.setAdImageId(window.getAdImageId());
+		windowDTO.setAdColorId(window.getAdColorId());
+		windowDTO.setIsdefault(window.getIsdefault());
 		windowDTO.setNumtabs(window.getNumtabs());
 		
 		return windowDTO;
@@ -110,6 +117,13 @@ public class WindowController {
 		window.setName(windowDTO.getName());
 		window.setDescription(windowDTO.getDescription());
 		window.setHelp(windowDTO.getHelp());
+		window.setWindowtype(windowDTO.getWindowtype());
+		window.setIssotrx(windowDTO.getIssotrx());
+		window.setEntitytype(windowDTO.getEntitytype());
+		window.setProcessing(windowDTO.getProcessing());
+		window.setAdImageId(windowDTO.getAdImageId());
+		window.setAdColorId(windowDTO.getAdColorId());
+		window.setIsdefault(windowDTO.getIsdefault());
 		window.setNumtabs(windowDTO.getNumtabs());
 		
 		return window;
