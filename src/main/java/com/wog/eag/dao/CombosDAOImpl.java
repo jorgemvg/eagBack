@@ -1,14 +1,17 @@
 package com.wog.eag.dao;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.wog.eag.model.Combo;
+import com.wog.eag.utils.SpecialSymbolsResolver;
 
 
 @Repository
@@ -34,4 +37,61 @@ public class CombosDAOImpl {
 		 return lista;
 	}
 	
+	 public List getAdTableId100277(BigDecimal adClientId, BigDecimal adOrgId, String param1 ){
+			String sql = "SELECT td0.AD_Table_ID AS ID, (COALESCE( (td0.TableName), '' ) [SQL_CS] ' - ' [SQL_CS] COALESCE( (td0.Name), '' )) AS NAME, '' AS DESCRIPTION"+ 
+				     " FROM AD_Table td0"+ 
+				     " WHERE td0.AD_Client_ID IN ( 0, :adClientId ) AND td0.AD_Org_ID IN ( 0, :adOrgId ) AND td0.AD_MODULE_ID IN ( SELECT AD_MODULE_ID FROM AD_MODULE WHERE AD_APPLICATION_ID IN ( :param1, 0 ) ) AND (td0.isActive = 'Y' ) ORDER BY 2";
+			
+//			String[] clientParams = clientList.split(",");
+//			String[] orgParams = orgList.split(",");
+//			List paramValues = new ArrayList();
+//			String paramsSql = "";
+//			for (String client : clientParams) {
+//				paramsSql += "?";
+//				if (StringUtils.isBlank(paramsSql))  {
+//					paramsSql += "?";
+//				}else {
+//					paramsSql += ",?";
+//				}
+//				paramValues.add(client);
+//			}
+//			sql.replace("@AD_CLIENT_IDS@", paramsSql);
+//			
+//			paramsSql = "";
+//			for (String org : orgParams) {
+//				paramsSql += "?";
+//				if (StringUtils.isBlank(paramsSql))  {
+//					paramsSql += "?";
+//				}else {
+//					paramsSql += ",?";
+//				}
+//				paramValues.add(org);
+//			}
+//			sql.replace("@AD_ORG_IDS@", paramsSql);
+//			
+//			Object[] params = paramValues.toArray();
+			
+			
+//			if( aditionalWhere != null && aditionalWhere.length() > 0 ){
+//			    StringBuilder __temp = new StringBuilder( sql.substring( 0 , sql.indexOf( "ORDER BY" ) ) );
+//			    __temp.append( " " ).append( aditionalWhere ).append( " " );
+//			    __temp.append( sql.substring( sql.indexOf( "ORDER BY" ) ) );
+//			    sql = __temp.toString( ); 
+//			}
+			try {
+
+			    @SuppressWarnings("unchecked")
+				List<Combo> lista = sessionFactory.getCurrentSession().createNativeQuery( SpecialSymbolsResolver.resolveStatement(sql) )
+						.addEntity(Combo.class)
+						.setParameter("adClientId", adClientId)
+						.setParameter("adOrgId", adOrgId)
+						.setParameter("param1", param1)
+						.list();
+			    return lista;
+			} catch (Exception e) {
+			    e.printStackTrace();
+			    return new ArrayList();
+			}
+	 }
+	 
 }
