@@ -8,7 +8,7 @@ import com.wog.eag.administracion.aplicaciones.model.ToolbarEntity;
 
 public interface ToolbarDAO {
 
-	ToolbarEntity get(BigDecimal id);
+	ToolbarEntity get(ToolbarPk pk);
 	
 	BigDecimal save( ToolbarEntity toolbar );
 

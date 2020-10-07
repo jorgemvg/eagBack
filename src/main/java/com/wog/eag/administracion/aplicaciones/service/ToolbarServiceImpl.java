@@ -32,8 +32,19 @@ public class ToolbarServiceImpl implements ToolbarService{
 	
 	@Override
 	@Transactional
-	public ToolbarEntity get(BigDecimal id) {
-		return toolbarDao.get(id);
+	public ToolbarEntity get(String parameters) {
+
+		JsonParser parser = new JsonParser();  
+		JsonObject json = (JsonObject) parser.parse(parameters);   
+		JsonElement eAdToolbarbuttonId = json.get("adToolbarbuttonId");
+		JsonElement eAdTabToolbarId = json.get("adTabToolbarId");
+		BigDecimal adToolbarbuttonId = eAdToolbarbuttonId.getAsBigDecimal();
+		BigDecimal adTabToolbarId = eAdTabToolbarId.getAsBigDecimal();
+		
+		ToolbarPk pk = new ToolbarPk();
+		pk.setAdToolbarbuttonId(adToolbarbuttonId);
+		pk.setAdTabToolbarId(adTabToolbarId);
+		return toolbarDao.get(pk);
 	}
 
 	@Override

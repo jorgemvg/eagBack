@@ -7,7 +7,7 @@ import com.wog.eag.administracion.aplicaciones.model.ToolbarEntity;
 
 public interface ToolbarService {
 
-	ToolbarEntity get(BigDecimal id);
+	ToolbarEntity get(String parameters);
 	
 	BigDecimal save( ToolbarEntity toolbar );
 

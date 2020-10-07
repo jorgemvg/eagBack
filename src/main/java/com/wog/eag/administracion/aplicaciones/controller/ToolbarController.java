@@ -50,8 +50,8 @@ public class ToolbarController {
 	}
 
 	@GetMapping("/toolbar/{id}")
-	public ResponseEntity<ToolbarDTO> get(@PathVariable("id") long id ){
-		ToolbarEntity entity = toolbarService.get( new BigDecimal(id) );
+	public ResponseEntity<ToolbarDTO> get(@PathVariable("id") String compositePk ){
+		ToolbarEntity entity = toolbarService.get( compositePk );
 		
 		ToolbarDTO dto = convertoEntityToDTO(entity);
 		
@@ -77,7 +77,7 @@ public class ToolbarController {
 
 	private ToolbarDTO convertoEntityToDTO(ToolbarEntity entity) {
 		ToolbarDTO dto = new ToolbarDTO();
-		
+		if (entity != null) {
 			dto.setSequence(entity.getSequence());
 			dto.setName(entity.getName());
 			dto.setScreenType(entity.getScreenType());
@@ -90,7 +90,7 @@ public class ToolbarController {
 			dto.setAdTabId(entity.getAdTabId());
 			dto.setAdClientId(entity.getAdClientId());
 			dto.setAdOrgId(entity.getAdOrgId());
-
+		}
 		return dto;
 	}
 	

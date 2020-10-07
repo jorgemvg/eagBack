@@ -18,8 +18,8 @@ public class ToolbarDAOImpl implements ToolbarDAO{
 	private SessionFactory sessionFactory;
 
 	@Override
-	public ToolbarEntity get(BigDecimal id) {
-		return sessionFactory.getCurrentSession().get(ToolbarEntity.class, id);
+	public ToolbarEntity get(ToolbarPk pk) {
+		return sessionFactory.getCurrentSession().get(ToolbarEntity.class, pk);
 	}
 
 	@Override
