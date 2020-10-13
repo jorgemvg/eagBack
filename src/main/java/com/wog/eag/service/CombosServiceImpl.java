@@ -24,10 +24,30 @@ public class CombosServiceImpl {
 	private CombosDAOImpl combosDao;
 	
 	@Transactional
+	public List<Combo> getCombo( String parameters ) {
+		
+		UsuarioPrincipal principal = (UsuarioPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
+		JsonParser parser = new JsonParser();
+		JsonObject json = (JsonObject) parser.parse(parameters); 
+		
+		String comboName = json.get("comboName").getAsString();
+		String adValRuleId = json.get("adValRuleId") != null ? (json.get("adValRuleId").getAsBigDecimal()).toString() : "";
+
+		String combo = comboName + adValRuleId;
+		
+		switch ( combo ) {
+		case "adToolbarbuttonId":
+			return combosDao.getAdToolbarbuttonId( principal.getDefaultAdClientId(), principal.getDefaultAdOrgId() );
+		default:
+			return new ArrayList<Combo>();
+		}
+		
+	}
+	
+	@Transactional
 	public List<Combo> getRefList( Long adReferenceId ) {
-		
 		return combosDao.getRefList(adReferenceId, "es_CO");
-		
 	}
 	
 	@Transactional
