@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.JsonObject;
@@ -23,6 +24,12 @@ public class ComboController {
 	@GetMapping("/")
 	public String welcome() {
 		return "welcome!!";
+	}
+	
+	@GetMapping("/combos")
+	public ResponseEntity<List<Combo>> getCombo( @RequestParam("params") String parameters  ){
+		List<Combo> list = combosService.getCombo( parameters );
+		return ResponseEntity.ok().body( list );
 	}
 	
 	@GetMapping("/combos/adRefList/{referenceId}")
