@@ -28,7 +28,7 @@ public class ToolbarServiceImpl implements ToolbarService{
 	private ToolbarDAO toolbarDao;
 	
 	@Autowired
-	private SequenceGeneratorService sequenceGenerator;
+	protected SequenceGeneratorService sequenceGenerator;
 	
 	@Override
 	@Transactional
