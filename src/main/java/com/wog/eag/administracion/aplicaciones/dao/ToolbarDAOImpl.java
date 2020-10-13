@@ -15,7 +15,7 @@ import com.wog.eag.administracion.aplicaciones.model.ToolbarEntity;
 public class ToolbarDAOImpl implements ToolbarDAO{
 
 	@Autowired
-	private SessionFactory sessionFactory;
+	protected SessionFactory sessionFactory;
 
 	@Override
 	public ToolbarEntity get(ToolbarPk pk) {
