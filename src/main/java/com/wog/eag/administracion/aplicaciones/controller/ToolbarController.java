@@ -17,13 +17,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.Gson;
 import com.wog.eag.administracion.aplicaciones.dto.ToolbarDTO;
 import com.wog.eag.administracion.aplicaciones.model.ToolbarEntity;
+import com.wog.eag.administracion.aplicaciones.service.ToolbarChildService;
 import com.wog.eag.administracion.aplicaciones.service.ToolbarService;
 
 @RestController
 public class ToolbarController {
 
 	@Autowired
-	private ToolbarService toolbarService;
+	private ToolbarChildService toolbarService;
 	
 	@GetMapping("/toolbar/list/{id}")
 	public ResponseEntity<List<ToolbarDTO>> list( @PathVariable("id") long parentId  ){
@@ -68,10 +69,10 @@ public class ToolbarController {
 		return ResponseEntity.ok().body( gson.toJson("Registro Actualizado Satisfactoriamente.") );
 	}
 
-	@DeleteMapping ( "/toolbar" ) 
-	public ResponseEntity<?> delete(@RequestBody String parameters ){
+	@DeleteMapping ( "/toolbar/{id}" ) 
+	public ResponseEntity<?> delete(@PathVariable("id") String compositePk ){
 		Gson gson = new Gson();
-		toolbarService.delete( parameters );
+		toolbarService.delete( compositePk );
 		return ResponseEntity.ok().body( gson.toJson("El registro ha sido eliminado.") );
 	}
 
