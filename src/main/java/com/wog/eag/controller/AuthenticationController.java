@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
 import com.wog.eag.config.exception.BadApiCredentialsException;
+import com.wog.eag.config.exception.JDBCConnectionException;
 import com.wog.eag.model.AuthenticationRequest;
 import com.wog.eag.model.AuthenticationResponse;
 import com.wog.eag.model.ErrorResponse;
@@ -48,11 +50,17 @@ public class AuthenticationController {
 		
 			return ResponseEntity.ok(new AuthenticationResponse(jwt));
 		
-		}catch (BadCredentialsException e) {
-
-			throw new BadApiCredentialsException("Incorrect username and password");
-		}
 		
+		}catch (BadCredentialsException e) {
+			throw new BadApiCredentialsException("Incorrect username and password");
+		}catch ( InternalAuthenticationServiceException e ) {
+			//TODO: validar que tipo de excepcion/implementacion llega
+			throw new JDBCConnectionException("Error de Conexión con la base de datos.");
+		}
+		catch (Exception e) {
+			System.out.println(e);
+			throw e;
+		}
 		
 	}
 	
