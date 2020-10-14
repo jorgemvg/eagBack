@@ -1,15 +1,13 @@
 package com.wog.eag.administracion.aplicaciones.dao;
 
 import java.math.BigDecimal;
-import java.util.List;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
+@Primary
 @Repository
-public class ToolbarChildDAOImpl extends ToolbarDAOImpl {
+public class ToolbarChildDAOImpl extends ToolbarDAOImpl implements ToolbarChildDAO {
 
 	public BigDecimal getAdTabToolbarId( BigDecimal adTabId, String screenType ) {
 
