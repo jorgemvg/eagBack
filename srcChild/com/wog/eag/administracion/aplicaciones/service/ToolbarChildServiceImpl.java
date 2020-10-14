@@ -12,15 +12,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.wog.eag.model.UsuarioPrincipal;
-
-import com.wog.eag.administracion.aplicaciones.dao.ToolbarChildDAOImpl;
+import com.wog.eag.administracion.aplicaciones.dao.ToolbarChildDAO;
 import com.wog.eag.administracion.aplicaciones.model.ToolbarEntity;
 
 @Service
 public class ToolbarChildServiceImpl extends ToolbarServiceImpl implements ToolbarChildService {
 
 	@Autowired
-	private ToolbarChildDAOImpl toolbarDao;
+	private ToolbarChildDAO toolbarDao;
 	
 	@Override
 	@Transactional
