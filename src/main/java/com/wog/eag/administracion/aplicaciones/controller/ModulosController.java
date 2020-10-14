@@ -15,8 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.wog.eag.administracion.aplicaciones.dto.ModulosDTO;
-import com.wog.eag.administracion.aplicaciones.model.Modulos;
+import com.wog.eag.administracion.aplicaciones.model.ModulosEntity;
 import com.wog.eag.administracion.aplicaciones.service.ModulosService;
 
 @RestController
@@ -26,14 +27,14 @@ public class ModulosController {
 	private ModulosService modulosService;
 	
 	@GetMapping("/modulos/list/{id}")
-	public ResponseEntity<List<ModulosDTO>> list( @PathVariable("id") long adApplicationId  ){
-		List<Modulos> list = modulosService.list( new BigDecimal(adApplicationId) );
+	public ResponseEntity<List<ModulosDTO>> list( @PathVariable("id") long parentId  ){
+		List<ModulosEntity> list = modulosService.list( new BigDecimal(parentId) );
 		
 		List<ModulosDTO> listResult = new ArrayList<ModulosDTO>();
-		ModulosDTO modulosDTO = null;
-		for (Modulos modulos : list) {
-			modulosDTO = convertoEntityToDTO(modulos);
-			listResult.add(modulosDTO);
+		ModulosDTO modulosDto = null;
+		for (ModulosEntity entity : list) {
+			modulosDto = convertoEntityToDTO(entity);
+			listResult.add(modulosDto);
 		}
 		
 		return ResponseEntity.ok().body( listResult );
@@ -43,28 +44,31 @@ public class ModulosController {
 	public ResponseEntity<?> save(@RequestBody ModulosDTO modulosDTO){
 		Gson gson = new Gson();
 		
-		Modulos modulos = convertoDTOToEntity(modulosDTO);
+		ModulosEntity entity = convertoDTOToEntity(modulosDTO);
 		
-		modulosService.save(modulos);
-		return ResponseEntity.ok().body( gson.toJson("Registro Creado Satisfactoriamente.") );
+		BigDecimal id = modulosService.save(entity);
+		JsonObject json = new JsonObject();
+		json.addProperty("id", id);
+		json.addProperty("message", "Registro Creado Satisfactoriamente.");
+		return ResponseEntity.ok().body( gson.toJson( json ) );
 	}
 
 	@GetMapping("/modulos/{id}")
 	public ResponseEntity<ModulosDTO> get(@PathVariable("id") long id ){
-		Modulos modulos = modulosService.get( new BigDecimal(id) );
+		ModulosEntity entity = modulosService.get( new BigDecimal(id) );
 		
-		ModulosDTO modulosDTO = convertoEntityToDTO(modulos);
+		ModulosDTO dto = convertoEntityToDTO(entity);
 		
-		return ResponseEntity.ok().body( modulosDTO );
+		return ResponseEntity.ok().body( dto );
 	}
 
 	@PutMapping( "/modulos/{id}" ) 
 	public ResponseEntity<?> update(@PathVariable("id") long id, @RequestBody ModulosDTO modulosDTO ){
 		Gson gson = new Gson();
 		
-		Modulos modulos = convertoDTOToEntity(modulosDTO);
+		ModulosEntity entity = convertoDTOToEntity(modulosDTO);
 		
-		modulosService.update(new BigDecimal(id), modulos);
+		modulosService.update(new BigDecimal(id), entity);
 		return ResponseEntity.ok().body( gson.toJson("Registro Actualizado Satisfactoriamente.") );
 	}
 
@@ -74,43 +78,34 @@ public class ModulosController {
 		modulosService.delete( new BigDecimal(id) );
 		return ResponseEntity.ok().body( gson.toJson("El registro ha sido eliminado.") );
 	}
-	
-	private ModulosDTO convertoEntityToDTO(Modulos modulos) {
-		ModulosDTO modulosDTO = new ModulosDTO();
-		
-		modulosDTO.setAdModuleId(modulos.getAdModuleId());
-		modulosDTO.setAdApplicationId(modulos.getAdApplicationId());
-		modulosDTO.setAdClientId(modulos.getAdClientId());
-		modulosDTO.setAdOrgId(modulos.getAdOrgId());
-		modulosDTO.setIsactive(modulos.getIsactive());
-		modulosDTO.setCreated(modulos.getCreated());
-		modulosDTO.setCreatedby(modulos.getCreatedby());
-		modulosDTO.setUpdated(modulos.getUpdated());
-		modulosDTO.setUpdatedby(modulos.getUpdatedby());
-		modulosDTO.setName(modulos.getName());
-		modulosDTO.setAddtables(modulos.getAddtables());
-		modulosDTO.setPackageRoot(modulos.getPackageRoot());
-		
-		return modulosDTO;
-	}
-	
-	private Modulos convertoDTOToEntity(ModulosDTO modulosDTO) {
-		Modulos modulos = new Modulos();
-		
-		modulos.setAdModuleId(modulosDTO.getAdModuleId());
-		modulos.setAdApplicationId(modulosDTO.getAdApplicationId());
-		modulos.setAdClientId(modulosDTO.getAdClientId());
-		modulos.setAdOrgId(modulosDTO.getAdOrgId());
-		modulos.setIsactive(modulosDTO.getIsactive());
-		modulos.setCreated(modulosDTO.getCreated());
-		modulos.setCreatedby(modulosDTO.getCreatedby());
-		modulos.setUpdated(modulosDTO.getUpdated());
-		modulos.setUpdatedby(modulosDTO.getUpdatedby());
-		modulos.setName(modulosDTO.getName());
-		modulos.setAddtables(modulosDTO.getAddtables());
-		modulos.setPackageRoot(modulosDTO.getPackageRoot());
-		
-		return modulos;
-	}
 
+	private ModulosDTO convertoEntityToDTO(ModulosEntity entity) {
+		ModulosDTO dto = new ModulosDTO();
+		if (entity != null) {
+			dto.setAdApplicationId(entity.getAdApplicationId());
+			dto.setName(entity.getName());
+			dto.setPackageRoot(entity.getPackageRoot());
+			dto.setAddtables(entity.getAddtables());
+			dto.setAdModuleId(entity.getAdModuleId());
+			dto.setAdClientId(entity.getAdClientId());
+			dto.setAdOrgId(entity.getAdOrgId());
+			dto.setIsactive(entity.getIsactive());
+		}
+		return dto;
+	}
+	
+	private ModulosEntity convertoDTOToEntity(ModulosDTO dto) {
+		ModulosEntity entity = new ModulosEntity();
+		
+			entity.setAdApplicationId(dto.getAdApplicationId());
+			entity.setName(dto.getName());
+			entity.setPackageRoot(dto.getPackageRoot());
+			entity.setAddtables(dto.getAddtables());
+			entity.setAdModuleId(dto.getAdModuleId());
+			entity.setAdClientId(dto.getAdClientId());
+			entity.setAdOrgId(dto.getAdOrgId());
+			entity.setIsactive(dto.getIsactive());
+		
+		return entity;
+	}
 }

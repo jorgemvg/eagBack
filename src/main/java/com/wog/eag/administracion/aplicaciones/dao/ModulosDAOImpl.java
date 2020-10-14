@@ -8,45 +8,45 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.wog.eag.administracion.aplicaciones.model.Modulos;
+import com.wog.eag.administracion.aplicaciones.model.ModulosEntity;
 
 @Repository
 public class ModulosDAOImpl implements ModulosDAO{
 
 	@Autowired
-	private SessionFactory sessionFactory;
+	protected SessionFactory sessionFactory;
 
 	@Override
-	public Modulos get(BigDecimal id) {
-		return sessionFactory.getCurrentSession().get(Modulos.class, id);
+	public ModulosEntity get(BigDecimal id) {
+		return sessionFactory.getCurrentSession().get(ModulosEntity.class, id);
 	}
 
 	@Override
-	public BigDecimal save(Modulos modulos) {
-		sessionFactory.getCurrentSession().save(modulos);
-		return modulos.getAdModuleId();
+	public BigDecimal save(ModulosEntity entity) {
+		sessionFactory.getCurrentSession().save(entity);
+		return entity.getAdModuleId();
 	}
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Modulos> list(BigDecimal adApplicationId) {
+	public List<ModulosEntity> list(BigDecimal parentId) {
 
-		List<Modulos> list = sessionFactory.getCurrentSession().createQuery("from Modulos where adApplicationId = :adApplicationId")
-				.setParameter("adApplicationId", adApplicationId).list();
+		List<ModulosEntity> list = sessionFactory.getCurrentSession().createQuery("from ModulosEntity where adApplicationId = :parentId")
+				.setParameter("parentId", parentId).list();
 		
 		return list;
 	}
 
 	@Override
-	public void update(Modulos modulos) {
-		sessionFactory.getCurrentSession().update(modulos);
+	public void update(ModulosEntity entity) {
+		sessionFactory.getCurrentSession().update(entity);
 	}
 
 	@Override
 	public void delete(BigDecimal id) {
 		Session session = sessionFactory.getCurrentSession();
-		Modulos modulos = session.byId(Modulos.class).load(id);
-		session.delete(modulos);
+		ModulosEntity entity = session.byId(ModulosEntity.class).load(id);
+		session.delete(entity);
 	}
 	
 }

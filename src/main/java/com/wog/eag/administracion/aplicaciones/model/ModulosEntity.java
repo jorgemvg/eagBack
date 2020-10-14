@@ -1,23 +1,53 @@
-package com.wog.eag.administracion.aplicaciones.dto;
+package com.wog.eag.administracion.aplicaciones.model;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
-public class ModulosDTO {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+@Entity
+@Table(name="AD_MODULE")
+public class ModulosEntity {
 
+	@Column(name="AD_APPLICATION_ID")
 	private BigDecimal adApplicationId;
+
+	@Column(name="NAME")
 	private String name;
+
+	@Column(name="PACKAGE_ROOT")
 	private String packageRoot;
+
+	@Column(name="ADDTABLES")
 	private String addtables;
+
+	@Id
+	@Column(name="AD_MODULE_ID")
 	private BigDecimal adModuleId;
+
+	@Column(name="AD_CLIENT_ID")
 	private BigDecimal adClientId;
+
+	@Column(name="AD_ORG_ID")
 	private BigDecimal adOrgId;
+
+	@Column(name="ISACTIVE")
 	private String isactive;
 
+
 //Auditoria
+	@Column(name="CREATED")
 	private Timestamp created;
+	
+	@Column(name="CREATEDBY", columnDefinition="decimal", precision=10, scale=0)
 	private BigDecimal createdby;
+	
+	@Column(name="UPDATED")
 	private Timestamp updated;
+	
+	@Column(name="UPDATEDBY", columnDefinition="decimal", precision=10, scale=0)
 	private BigDecimal updatedby;
 
 	public BigDecimal getAdApplicationId() {

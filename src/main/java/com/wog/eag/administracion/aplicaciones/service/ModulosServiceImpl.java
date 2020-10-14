@@ -12,7 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.wog.eag.administracion.aplicaciones.dao.ModulosDAO;
-import com.wog.eag.administracion.aplicaciones.model.Modulos;
+import com.wog.eag.administracion.aplicaciones.model.ModulosEntity;
 import com.wog.eag.model.UsuarioPrincipal;
 import com.wog.eag.service.SequenceGeneratorService;
 
@@ -23,44 +23,44 @@ public class ModulosServiceImpl implements ModulosService{
 	private ModulosDAO modulosDao;
 	
 	@Autowired
-	private SequenceGeneratorService sequenceGenerator;
+	protected SequenceGeneratorService sequenceGenerator;
 	
 	@Override
 	@Transactional
-	public Modulos get(BigDecimal id) {
+	public ModulosEntity get(BigDecimal id) {
 		return modulosDao.get(id);
 	}
 
 	@Override
 	@Transactional
-	public BigDecimal save(Modulos modulos) {
+	public BigDecimal save(ModulosEntity entity) {
 		
 		UsuarioPrincipal principal = (UsuarioPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-		modulos.setCreated( new Timestamp(new Date().getTime()) );
-		modulos.setUpdated( new Timestamp(new Date().getTime()) );
-		modulos.setCreatedby(principal.getAdUserId());
-		modulos.setUpdatedby(principal.getAdUserId());
-		modulos.setAdClientId(principal.getDefaultAdClientId());
-		modulos.setAdOrgId(principal.getDefaultAdOrgId());
-		modulos.setIsactive("Y");
+		entity.setCreated( new Timestamp(new Date().getTime()) );
+		entity.setUpdated( new Timestamp(new Date().getTime()) );
+		entity.setCreatedby(principal.getAdUserId());
+		entity.setUpdatedby(principal.getAdUserId());
+		entity.setAdClientId(principal.getDefaultAdClientId());
+		entity.setAdOrgId(principal.getDefaultAdOrgId());
+		entity.setIsactive("Y");
 		
-		BigDecimal adApplicationId = sequenceGenerator.getSequence("AD_MODULE", principal.getDefaultAdClientId());
-		modulos.setAdModuleId(adApplicationId);
+		BigDecimal adModuleId = sequenceGenerator.getSequence("AD_MODULE", principal.getDefaultAdClientId());
+		entity.setAdModuleId(adModuleId);
 		
-		return modulosDao.save(modulos);
+		return modulosDao.save(entity);
 	}
 
 	@Override
 	@Transactional
-	public void update(BigDecimal id, Modulos modulos) {
+	public void update(BigDecimal id, ModulosEntity entity) {
 		
 		UsuarioPrincipal principal = (UsuarioPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-		modulos.setUpdated( new Timestamp(new Date().getTime()) );
-		modulos.setUpdatedby(principal.getAdUserId());
+		entity.setUpdated( new Timestamp(new Date().getTime()) );
+		entity.setUpdatedby(principal.getAdUserId());
 		
-		modulosDao.update(modulos);
+		modulosDao.update(entity);
 	}
 
 	@Override
@@ -71,8 +71,8 @@ public class ModulosServiceImpl implements ModulosService{
 	
 	@Override
 	@Transactional
-	public List<Modulos> list( BigDecimal adApplicationId ) {
-		return modulosDao.list(adApplicationId);
+	public List<ModulosEntity> list( BigDecimal parentId ) {
+		return modulosDao.list(parentId);
 	}
-
+	
 }

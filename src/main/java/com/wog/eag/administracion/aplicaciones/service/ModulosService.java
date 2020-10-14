@@ -3,18 +3,18 @@ package com.wog.eag.administracion.aplicaciones.service;
 import java.math.BigDecimal;
 import java.util.List;
 
-import com.wog.eag.administracion.aplicaciones.model.Modulos;
+import com.wog.eag.administracion.aplicaciones.model.ModulosEntity;
 
 public interface ModulosService {
 
-	Modulos get(BigDecimal id);
+	ModulosEntity get(	BigDecimal id);
 	
-	BigDecimal save(Modulos modulos);
+	BigDecimal save( ModulosEntity modulos );
+
+	void update( BigDecimal id, ModulosEntity modulos );
 	
-	void update(BigDecimal id, Modulos modulos);
+	void delete(	BigDecimal id);
 	
-	void delete(BigDecimal id);
-	
-	List<Modulos> list(BigDecimal adApplicationId);
+	List<ModulosEntity> list(BigDecimal parentId);
 
 }
