@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import com.wog.eag.administracion.aplicaciones.dao.ToolbarDAO;
+import com.wog.eag.administracion.aplicaciones.dao.ToolbarChildDAO;
 import com.wog.eag.administracion.aplicaciones.model.ToolbarEntity;
 import com.wog.eag.model.UsuarioPrincipal;
 import com.wog.eag.service.SequenceGeneratorService;
@@ -19,13 +19,12 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.wog.eag.administracion.aplicaciones.model.ToolbarPk;
-import com.wog.eag.administracion.aplicaciones.model.ToolbarEntity;
 
 @Service
 public class ToolbarServiceImpl implements ToolbarService{
 
 	@Autowired
-	private ToolbarDAO toolbarDao;
+	private ToolbarChildDAO toolbarDao;
 	
 	@Autowired
 	protected SequenceGeneratorService sequenceGenerator;
