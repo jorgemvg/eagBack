@@ -18,13 +18,13 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.wog.eag.administracion.aplicaciones.dto.ModulosDTO;
 import com.wog.eag.administracion.aplicaciones.model.ModulosEntity;
-import com.wog.eag.administracion.aplicaciones.service.ModulosService;
+import com.wog.eag.administracion.aplicaciones.service.ModulosChildService;
 
 @RestController
 public class ModulosController {
 
 	@Autowired
-	private ModulosService modulosService;
+	private ModulosChildService modulosService;
 	
 	@GetMapping("/modulos/list/{id}")
 	public ResponseEntity<List<ModulosDTO>> list( @PathVariable("id") long parentId  ){
@@ -90,6 +90,11 @@ public class ModulosController {
 			dto.setAdClientId(entity.getAdClientId());
 			dto.setAdOrgId(entity.getAdOrgId());
 			dto.setIsactive(entity.getIsactive());
+		
+			dto.setCreated(entity.getCreated());
+			dto.setCreatedby(entity.getCreatedby());
+			dto.setUpdated(entity.getUpdated());
+			dto.setUpdatedby(entity.getUpdatedby());
 		}
 		return dto;
 	}
@@ -105,6 +110,11 @@ public class ModulosController {
 			entity.setAdClientId(dto.getAdClientId());
 			entity.setAdOrgId(dto.getAdOrgId());
 			entity.setIsactive(dto.getIsactive());
+		
+			entity.setCreated(dto.getCreated());
+			entity.setCreatedby(dto.getCreatedby());
+			entity.setUpdated(dto.getUpdated());
+			entity.setUpdatedby(dto.getUpdatedby());
 		
 		return entity;
 	}
