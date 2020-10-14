@@ -14,7 +14,7 @@ import com.wog.eag.administracion.aplicaciones.model.TabEntity;
 public class TabDAOImpl implements TabDAO{
 
 	@Autowired
-	private SessionFactory sessionFactory;
+	protected SessionFactory sessionFactory;
 
 	@Override
 	public TabEntity get(BigDecimal id) {

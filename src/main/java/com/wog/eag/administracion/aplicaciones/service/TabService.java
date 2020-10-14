@@ -7,13 +7,13 @@ import com.wog.eag.administracion.aplicaciones.model.TabEntity;
 
 public interface TabService {
 
-	TabEntity get(BigDecimal id);
+	TabEntity get(	BigDecimal id);
 	
 	BigDecimal save( TabEntity tab );
 
 	void update( BigDecimal id, TabEntity tab );
 	
-	void delete(BigDecimal id);
+	void delete(	BigDecimal id);
 	
 	List<TabEntity> list(BigDecimal parentId);
 

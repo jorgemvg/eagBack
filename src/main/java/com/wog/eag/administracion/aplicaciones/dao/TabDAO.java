@@ -13,7 +13,7 @@ public interface TabDAO {
 
 	void update( TabEntity tab );
 	
-	void delete(BigDecimal id);
+	void delete( BigDecimal id);
 	
 	List<TabEntity> list(BigDecimal parentId);
 

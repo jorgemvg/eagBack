@@ -1,9 +1,12 @@
 package com.wog.eag.administracion.aplicaciones.dto;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
-public class TabDTO {
+public class TabDTO implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	private String name;
 	private String label;

@@ -15,15 +15,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.wog.eag.administracion.aplicaciones.dto.TabDTO;
 import com.wog.eag.administracion.aplicaciones.model.TabEntity;
-import com.wog.eag.administracion.aplicaciones.service.TabService;
+import com.wog.eag.administracion.aplicaciones.service.TabChildService;
 
 @RestController
 public class TabController {
 
 	@Autowired
-	private TabService tabService;
+	private TabChildService tabService;
 	
 	@GetMapping("/tab/list/{id}")
 	public ResponseEntity<List<TabDTO>> list( @PathVariable("id") long parentId  ){
@@ -45,8 +46,11 @@ public class TabController {
 		
 		TabEntity entity = convertoDTOToEntity(tabDTO);
 		
-		tabService.save(entity);
-		return ResponseEntity.ok().body( gson.toJson("Registro Creado Satisfactoriamente.") );
+		BigDecimal id = tabService.save(entity);
+		JsonObject json = new JsonObject();
+		json.addProperty("id", id);
+		json.addProperty("message", "Registro Creado Satisfactoriamente.");
+		return ResponseEntity.ok().body( gson.toJson( json ) );
 	}
 
 	@GetMapping("/tab/{id}")
@@ -74,10 +78,10 @@ public class TabController {
 		tabService.delete( new BigDecimal(id) );
 		return ResponseEntity.ok().body( gson.toJson("El registro ha sido eliminado.") );
 	}
-	
+
 	private TabDTO convertoEntityToDTO(TabEntity entity) {
 		TabDTO dto = new TabDTO();
-		
+		if (entity != null) {
 			dto.setName(entity.getName());
 			dto.setLabel(entity.getLabel());
 			dto.setDescription(entity.getDescription());
@@ -124,7 +128,12 @@ public class TabController {
 			dto.setConfSaveMobile(entity.getConfSaveMobile());
 			dto.setDinamicTable(entity.getDinamicTable());
 			dto.setFileTable(entity.getFileTable());
-
+		
+			dto.setCreated(entity.getCreated());
+			dto.setCreatedby(entity.getCreatedby());
+			dto.setUpdated(entity.getUpdated());
+			dto.setUpdatedby(entity.getUpdatedby());
+		}
 		return dto;
 	}
 	
@@ -177,6 +186,11 @@ public class TabController {
 			entity.setConfSaveMobile(dto.getConfSaveMobile());
 			entity.setDinamicTable(dto.getDinamicTable());
 			entity.setFileTable(dto.getFileTable());
+		
+			entity.setCreated(dto.getCreated());
+			entity.setCreatedby(dto.getCreatedby());
+			entity.setUpdated(dto.getUpdated());
+			entity.setUpdatedby(dto.getUpdatedby());
 		
 		return entity;
 	}

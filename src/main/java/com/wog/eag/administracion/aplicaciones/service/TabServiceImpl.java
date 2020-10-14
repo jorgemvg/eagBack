@@ -16,9 +16,6 @@ import com.wog.eag.administracion.aplicaciones.model.TabEntity;
 import com.wog.eag.model.UsuarioPrincipal;
 import com.wog.eag.service.SequenceGeneratorService;
 
-
-import com.wog.eag.administracion.aplicaciones.model.TabEntity;
-
 @Service
 public class TabServiceImpl implements TabService{
 
@@ -26,7 +23,7 @@ public class TabServiceImpl implements TabService{
 	private TabDAO tabDao;
 	
 	@Autowired
-	private SequenceGeneratorService sequenceGenerator;
+	protected SequenceGeneratorService sequenceGenerator;
 	
 	@Override
 	@Transactional
@@ -49,7 +46,7 @@ public class TabServiceImpl implements TabService{
 		entity.setIsactive("Y");
 		
 		BigDecimal adTabId = sequenceGenerator.getSequence("AD_TAB", principal.getDefaultAdClientId());
-		entity.setAdWindowId(adTabId);
+		entity.setAdTabId(adTabId);
 		
 		return tabDao.save(entity);
 	}
