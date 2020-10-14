@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import com.wog.eag.administracion.aplicaciones.dao.ModulosChildDAOImpl;
 
 @Service
-public class ModulosChildServiceImpl extends ModulosServiceImpl {
+public class ModulosChildServiceImpl extends ModulosServiceImpl implements ModulosChildService {
 
 	@Autowired
 	private ModulosChildDAOImpl modulosDao;
