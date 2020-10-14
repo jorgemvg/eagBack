@@ -1,34 +1,77 @@
-package com.wog.eag.administracion.aplicaciones.dto;
+package com.wog.eag.administracion.aplicaciones.model;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
-public class WindowDTO implements Serializable {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+@Entity
+@Table(name="AD_WINDOW")
+public class WindowEntity {
 
-	private static final long serialVersionUID = 1L;
-	
+	@Column(name="NAME")
 	private String name;
+
+	@Column(name="DESCRIPTION")
 	private String description;
+
+	@Column(name="HELP")
 	private String help;
+
+	@Column(name="NUMTABS")
 	private BigDecimal numtabs;
+
+	@Column(name="ISACTIVE")
 	private String isactive;
+
+	@Id
+	@Column(name="AD_WINDOW_ID")
 	private BigDecimal adWindowId;
+
+	@Column(name="WINDOWTYPE")
 	private String windowtype;
+
+	@Column(name="AD_CLIENT_ID")
 	private BigDecimal adClientId;
+
+	@Column(name="AD_ORG_ID")
 	private BigDecimal adOrgId;
+
+	@Column(name="PROCESSING")
 	private String processing;
+
+	@Column(name="AD_COLOR_ID")
 	private BigDecimal adColorId;
+
+	@Column(name="AD_IMAGE_ID")
 	private BigDecimal adImageId;
+
+	@Column(name="ISSOTRX")
 	private String issotrx;
+
+	@Column(name="ISDEFAULT")
 	private String isdefault;
+
+	@Column(name="AD_MODULE_ID")
 	private BigDecimal adModuleId;
+
+	@Column(name="ENTITYTYPE")
 	private String entitytype;
 
+
 //Auditoria
+	@Column(name="CREATED")
 	private Timestamp created;
+	
+	@Column(name="CREATEDBY", columnDefinition="decimal", precision=10, scale=0)
 	private BigDecimal createdby;
+	
+	@Column(name="UPDATED")
 	private Timestamp updated;
+	
+	@Column(name="UPDATEDBY", columnDefinition="decimal", precision=10, scale=0)
 	private BigDecimal updatedby;
 
 	public String getName() {

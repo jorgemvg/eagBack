@@ -3,18 +3,18 @@ package com.wog.eag.administracion.aplicaciones.service;
 import java.math.BigDecimal;
 import java.util.List;
 
-import com.wog.eag.administracion.aplicaciones.model.Window;;
+import com.wog.eag.administracion.aplicaciones.model.WindowEntity;
 
 public interface WindowService {
 
-	Window get(BigDecimal id);
+	WindowEntity get(	BigDecimal id);
 	
-	BigDecimal save(Window window);
+	BigDecimal save( WindowEntity window );
+
+	void update( BigDecimal id, WindowEntity window );
 	
-	void update(BigDecimal id, Window window);
+	void delete(	BigDecimal id);
 	
-	void delete(BigDecimal id);
-	
-	List<Window> list(BigDecimal adModuleId);
+	List<WindowEntity> list(BigDecimal parentId);
 
 }

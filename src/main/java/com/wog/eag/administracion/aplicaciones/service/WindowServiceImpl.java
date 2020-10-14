@@ -12,7 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.wog.eag.administracion.aplicaciones.dao.WindowDAO;
-import com.wog.eag.administracion.aplicaciones.model.Window;
+import com.wog.eag.administracion.aplicaciones.model.WindowEntity;
 import com.wog.eag.model.UsuarioPrincipal;
 import com.wog.eag.service.SequenceGeneratorService;
 
@@ -23,44 +23,44 @@ public class WindowServiceImpl implements WindowService{
 	private WindowDAO windowDao;
 	
 	@Autowired
-	private SequenceGeneratorService sequenceGenerator;
+	protected SequenceGeneratorService sequenceGenerator;
 	
 	@Override
 	@Transactional
-	public Window get(BigDecimal id) {
+	public WindowEntity get(BigDecimal id) {
 		return windowDao.get(id);
 	}
 
 	@Override
 	@Transactional
-	public BigDecimal save(Window window) {
+	public BigDecimal save(WindowEntity entity) {
 		
 		UsuarioPrincipal principal = (UsuarioPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-		window.setCreated( new Timestamp(new Date().getTime()) );
-		window.setUpdated( new Timestamp(new Date().getTime()) );
-		window.setCreatedby(principal.getAdUserId());
-		window.setUpdatedby(principal.getAdUserId());
-		window.setAdClientId(principal.getDefaultAdClientId());
-		window.setAdOrgId(principal.getDefaultAdOrgId());
-		window.setIsactive("Y");
+		entity.setCreated( new Timestamp(new Date().getTime()) );
+		entity.setUpdated( new Timestamp(new Date().getTime()) );
+		entity.setCreatedby(principal.getAdUserId());
+		entity.setUpdatedby(principal.getAdUserId());
+		entity.setAdClientId(principal.getDefaultAdClientId());
+		entity.setAdOrgId(principal.getDefaultAdOrgId());
+		entity.setIsactive("Y");
 		
 		BigDecimal adWindowId = sequenceGenerator.getSequence("AD_WINDOW", principal.getDefaultAdClientId());
-		window.setAdWindowId(adWindowId);
+		entity.setAdWindowId(adWindowId);
 		
-		return windowDao.save(window);
+		return windowDao.save(entity);
 	}
 
 	@Override
 	@Transactional
-	public void update(BigDecimal id, Window window) {
+	public void update(BigDecimal id, WindowEntity entity) {
 		
 		UsuarioPrincipal principal = (UsuarioPrincipal)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-		window.setUpdated( new Timestamp(new Date().getTime()) );
-		window.setUpdatedby(principal.getAdUserId());
+		entity.setUpdated( new Timestamp(new Date().getTime()) );
+		entity.setUpdatedby(principal.getAdUserId());
 		
-		windowDao.update(window);
+		windowDao.update(entity);
 	}
 
 	@Override
@@ -71,8 +71,8 @@ public class WindowServiceImpl implements WindowService{
 	
 	@Override
 	@Transactional
-	public List<Window> list( BigDecimal adModuleId ) {
-		return windowDao.list(adModuleId);
+	public List<WindowEntity> list( BigDecimal parentId ) {
+		return windowDao.list(parentId);
 	}
-
+	
 }

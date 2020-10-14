@@ -8,45 +8,45 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.wog.eag.administracion.aplicaciones.model.Window;
+import com.wog.eag.administracion.aplicaciones.model.WindowEntity;
 
 @Repository
 public class WindowDAOImpl implements WindowDAO{
 
 	@Autowired
-	private SessionFactory sessionFactory;
+	protected SessionFactory sessionFactory;
 
 	@Override
-	public Window get(BigDecimal id) {
-		return sessionFactory.getCurrentSession().get(Window.class, id);
+	public WindowEntity get(BigDecimal id) {
+		return sessionFactory.getCurrentSession().get(WindowEntity.class, id);
 	}
 
 	@Override
-	public BigDecimal save(Window window) {
-		sessionFactory.getCurrentSession().save(window);
-		return window.getAdModuleId();
+	public BigDecimal save(WindowEntity entity) {
+		sessionFactory.getCurrentSession().save(entity);
+		return entity.getAdWindowId();
 	}
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Window> list(BigDecimal adModuleId) {
+	public List<WindowEntity> list(BigDecimal parentId) {
 
-		List<Window> list = sessionFactory.getCurrentSession().createQuery("from Window where adModuleId = :adModuleId")
-				.setParameter("adModuleId", adModuleId).list();
+		List<WindowEntity> list = sessionFactory.getCurrentSession().createQuery("from WindowEntity where adModuleId = :parentId")
+				.setParameter("parentId", parentId).list();
 		
 		return list;
 	}
 
 	@Override
-	public void update(Window window) {
-		sessionFactory.getCurrentSession().update(window);
+	public void update(WindowEntity entity) {
+		sessionFactory.getCurrentSession().update(entity);
 	}
 
 	@Override
 	public void delete(BigDecimal id) {
 		Session session = sessionFactory.getCurrentSession();
-		Window window = session.byId(Window.class).load(id);
-		session.delete(window);
+		WindowEntity entity = session.byId(WindowEntity.class).load(id);
+		session.delete(entity);
 	}
 	
 }
