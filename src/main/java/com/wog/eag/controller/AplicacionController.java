@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.wog.eag.model.Aplicacion;
 import com.wog.eag.service.AplicacionService;
 
@@ -32,8 +33,11 @@ public class AplicacionController {
 	@PostMapping( "/aplicacion" ) 
 	public ResponseEntity<?> save(@RequestBody Aplicacion empleado){
 		Gson gson = new Gson();
-		aplicacionService.save(empleado);
-		return ResponseEntity.ok().body( gson.toJson("Registro Creado Satisfactoriamente.") );
+		BigDecimal id = aplicacionService.save(empleado);
+		JsonObject json = new JsonObject();
+		json.addProperty("id", id);
+		json.addProperty("message", "Registro Creado Satisfactoriamente.");
+		return ResponseEntity.ok().body( gson.toJson( json ) );
 	}
 
 	@GetMapping("/aplicacion/{id}")
