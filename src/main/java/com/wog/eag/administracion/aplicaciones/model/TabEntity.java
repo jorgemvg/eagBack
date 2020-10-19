@@ -7,8 +7,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
 @Entity
 @Table(name="AD_TAB")
+@DynamicInsert
 public class TabEntity {
 
 	@Column(name="NAME")
@@ -26,6 +30,7 @@ public class TabEntity {
 	@Column(name="AD_TABLE_ID")
 	private BigDecimal adTableId;
 
+	@ColumnDefault( "U" )
 	@Column(name="ENTITYTYPE")
 	private String entitytype;
 
@@ -35,6 +40,7 @@ public class TabEntity {
 	@Column(name="TABLEVEL")
 	private BigDecimal tablevel;
 
+	@ColumnDefault( "N" )
 	@Column(name="ISSINGLEROW")
 	private String issinglerow;
 
@@ -53,12 +59,15 @@ public class TabEntity {
 	@Column(name="DISPLAY_LOGIC")
 	private String displayLogic;
 
+	@ColumnDefault( "N" )
 	@Column(name="CAN_COPY_ENTITY")
 	private String canCopyEntity;
 
+	@ColumnDefault( "N" )
 	@Column(name="HASFILE")
 	private String hasfile;
 
+	@ColumnDefault( "N" )
 	@Column(name="HAS_DYNAMIC_FIELDS")
 	private String hasDynamicFields;
 
@@ -74,12 +83,15 @@ public class TabEntity {
 	@Column(name="IMPORTFIELDS")
 	private String importfields;
 
+	@ColumnDefault( "Y" )
 	@Column(name="ISACTIVE")
 	private String isactive;
 
+	@ColumnDefault( "Y" )
 	@Column(name="SHOWPAGELIST")
 	private String showpagelist;
 
+	@ColumnDefault( "Y" )
 	@Column(name="SHOWPAGEVIEW")
 	private String showpageview;
 
@@ -107,6 +119,7 @@ public class TabEntity {
 	@Column(name="PROCESSING")
 	private String processing;
 
+	@ColumnDefault( "N" )
 	@Column(name="ISSORTTAB")
 	private String issorttab;
 
@@ -125,12 +138,14 @@ public class TabEntity {
 	@Column(name="EDITREFERENCE")
 	private BigDecimal editreference;
 
+	@ColumnDefault( "N" )
 	@Column(name="HAS_AUDITORY")
 	private String hasAuditory;
 
 	@Column(name="ISINFOTAB")
 	private String isinfotab;
 
+	@ColumnDefault( "Y" )
 	@Column(name="SHOWPAGEEDIT")
 	private String showpageedit;
 
@@ -141,6 +156,7 @@ public class TabEntity {
 	@Column(name="AD_COLUMNSORTYESNO_ID")
 	private BigDecimal adColumnsortyesnoId;
 
+	@ColumnDefault( "N" )
 	@Column(name="CONF_SAVE_MOBILE")
 	private String confSaveMobile;
 
