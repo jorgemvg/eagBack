@@ -17,4 +17,5 @@ public interface ModulosService {
 	
 	List<ModulosEntity> list(BigDecimal parentId);
 
+	public ModulosEntity setDefaultValue( BigDecimal parentId );
 }

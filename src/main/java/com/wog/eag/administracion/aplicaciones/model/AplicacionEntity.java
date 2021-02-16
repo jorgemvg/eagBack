@@ -1,4 +1,4 @@
-package com.wog.eag.model;
+package com.wog.eag.administracion.aplicaciones.model;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -7,25 +7,63 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import org.hibernate.annotations.ColumnDefault;
+import org.springframework.transaction.annotation.Transactional;
 
-import org.springframework.context.annotation.Scope;
+@Transactional
 @Entity
 @Table(name="AD_APPLICATION")
-public class Aplicacion {
+public class AplicacionEntity {
+
+	@Column(name="CODE_APPLICATION")
+	private String codeApplication;
+
+	@Column(name="NAME")
+	private String name;
+
+	@Column(name="DESCRIPTION")
+	private String description;
+
+	@Column(name="URL")
+	private String url;
+
+	@Column(name="DRIVERCLASS")
+	private String driverclass;
+
+	@Column(name="USUARIO")
+	private String usuario;
+
+	@Column(name="PASSWORD")
+	private String password;
+
+	@Column(name="DATABASENAME")
+	private String databasename;
+
+	@Column(name="PACKAGE_ROOT")
+	private String packageRoot;
+
+	@Column(name="CONTEXT_ROOT")
+	private String contextRoot;
+
+	@Column(name="DATABASE_TYPE")
+	private String databaseType;
 
 	@Id
-	@Column(name="AD_APPLICATION_ID", columnDefinition="decimal", precision=10, scale=0)
+	@Column(name="AD_APPLICATION_ID")
 	private BigDecimal adApplicationId;
-	
-	@Column(name="AD_CLIENT_ID", columnDefinition="decimal", precision=10, scale=0)
+
+	@Column(name="AD_CLIENT_ID")
 	private BigDecimal adClientId;
-	
-	@Column(name="AD_ORG_ID", columnDefinition="decimal", precision=10, scale=0)
+
+	@Column(name="AD_ORG_ID")
 	private BigDecimal adOrgId;
-	
-	@Column(name="ISACTIVE", columnDefinition="char")
+
+	@ColumnDefault( "Y" )
+	@Column(name="ISACTIVE")
 	private String isactive;
-	
+
+
+//Auditoria
 	@Column(name="CREATED")
 	private Timestamp created;
 	
@@ -37,92 +75,7 @@ public class Aplicacion {
 	
 	@Column(name="UPDATEDBY", columnDefinition="decimal", precision=10, scale=0)
 	private BigDecimal updatedby;
-	
-	@Column(name="CODE_APPLICATION")
-	private String codeApplication;
-	
-	@Column(name="NAME")
-	private String name;
-	
-	@Column(name="DESCRIPTION")
-	private String description;
-	
-	@Column(name="URL")
-	private String url;
-	
-	@Column(name="DRIVERCLASS")
-	private String driverclass;
-	
-	@Column(name="USUARIO")
-	private String usuario;
-	
-	@Column(name="PASSWORD")
-	private String password;
-	
-	@Column(name="DATABASENAME")
-	private String databasename;
-	
-	@Column(name="PACKAGE_ROOT")
-	private String packageRoot;
-	
-	@Column(name="CONTEXT_ROOT")
-	private String contextRoot;
-	
-	@Column(name="DATABASE_TYPE")
-	private String databaseType;
-	
-	@Column(name="ISPUBLIC")
-	private String ispublic;
-	
-	
-	public BigDecimal getAdApplicationId() {
-		return adApplicationId;
-	}
-	public void setAdApplicationId(BigDecimal adApplicationId) {
-		this.adApplicationId = adApplicationId;
-	}
-	public BigDecimal getAdClientId() {
-		return adClientId;
-	}
-	public void setAdClientId(BigDecimal adClientId) {
-		this.adClientId = adClientId;
-	}
-	public BigDecimal getAdOrgId() {
-		return adOrgId;
-	}
-	public void setAdOrgId(BigDecimal adOrgId) {
-		this.adOrgId = adOrgId;
-	}
-	public String getIsactive() {
-		return isactive;
-	}
-	public void setIsactive(String isactive) {
-		this.isactive = isactive;
-	}
-	public Timestamp getCreated() {
-		return created;
-	}
-	public void setCreated(Timestamp created) {
-		this.created = created;
-	}
-	public BigDecimal getCreatedby() {
-		return createdby;
-	}
-	public void setCreatedby(BigDecimal createdby) {
-		this.createdby = createdby;
-	}
-	public Timestamp getUpdated() {
-		return updated;
-	}
-	public void setUpdated(Timestamp updated) {
-		this.updated = updated;
-	}
-	public BigDecimal getUpdatedby() {
-		return updatedby;
-	}
-	public void setUpdatedby(BigDecimal updatedby) {
-		this.updatedby = updatedby;
-	}
+
 	public String getCodeApplication() {
 		return codeApplication;
 	}
@@ -189,11 +142,52 @@ public class Aplicacion {
 	public void setDatabaseType(String databaseType) {
 		this.databaseType = databaseType;
 	}
-	public String getIspublic() {
-		return ispublic;
+	public BigDecimal getAdApplicationId() {
+		return adApplicationId;
 	}
-	public void setIspublic(String ispublic) {
-		this.ispublic = ispublic;
+	public void setAdApplicationId(BigDecimal adApplicationId) {
+		this.adApplicationId = adApplicationId;
 	}
-
+	public BigDecimal getAdClientId() {
+		return adClientId;
+	}
+	public void setAdClientId(BigDecimal adClientId) {
+		this.adClientId = adClientId;
+	}
+	public BigDecimal getAdOrgId() {
+		return adOrgId;
+	}
+	public void setAdOrgId(BigDecimal adOrgId) {
+		this.adOrgId = adOrgId;
+	}
+	public String getIsactive() {
+		return isactive;
+	}
+	public void setIsactive(String isactive) {
+		this.isactive = isactive;
+	}
+	public Timestamp getCreated() {
+		return created;
+	}
+	public void setCreated(Timestamp created) {
+		this.created = created;
+	}
+	public BigDecimal getCreatedby() {
+		return createdby;
+	}
+	public void setCreatedby(BigDecimal createdby) {
+		this.createdby = createdby;
+	}
+	public Timestamp getUpdated() {
+		return updated;
+	}
+	public void setUpdated(Timestamp updated) {
+		this.updated = updated;
+	}
+	public BigDecimal getUpdatedby() {
+		return updatedby;
+	}
+	public void setUpdatedby(BigDecimal updatedby) {
+		this.updatedby = updatedby;
+	}
 }

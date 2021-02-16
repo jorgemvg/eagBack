@@ -7,6 +7,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import org.hibernate.annotations.ColumnDefault;
+
 @Entity
 @Table(name="AD_MODULE")
 public class ModulosEntity {
@@ -33,6 +35,7 @@ public class ModulosEntity {
 	@Column(name="AD_ORG_ID")
 	private BigDecimal adOrgId;
 
+	@ColumnDefault( "Y" )
 	@Column(name="ISACTIVE")
 	private String isactive;
 

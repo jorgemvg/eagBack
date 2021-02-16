@@ -7,9 +7,11 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.wog.eag.administracion.aplicaciones.model.ModulosEntity;
 
+@Transactional
 @Repository
 public class ModulosDAOImpl implements ModulosDAO{
 

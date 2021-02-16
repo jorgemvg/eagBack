@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,9 @@ import com.wog.eag.administracion.aplicaciones.dao.ModulosDAO;
 import com.wog.eag.administracion.aplicaciones.model.ModulosEntity;
 import com.wog.eag.model.UsuarioPrincipal;
 import com.wog.eag.service.SequenceGeneratorService;
+import com.wog.eag.administracion.aplicaciones.model.AplicacionEntity;
 
+@Transactional
 @Service
 public class ModulosServiceImpl implements ModulosService{
 
@@ -24,6 +27,9 @@ public class ModulosServiceImpl implements ModulosService{
 	
 	@Autowired
 	protected SequenceGeneratorService sequenceGenerator;
+	
+	@Autowired
+	protected SessionFactory sessionFactory;
 	
 	@Override
 	@Transactional
@@ -74,5 +80,18 @@ public class ModulosServiceImpl implements ModulosService{
 	public List<ModulosEntity> list( BigDecimal parentId ) {
 		return modulosDao.list(parentId);
 	}
+
+	public ModulosEntity setDefaultValue( BigDecimal adApplicationId ) {
+
+		ModulosEntity entity = new ModulosEntity();
+
+		AplicacionEntity aplicacionEntity = sessionFactory.getCurrentSession().load(AplicacionEntity.class, adApplicationId);
+		entity.setAdApplicationId( aplicacionEntity.getAdApplicationId() );
+
+		entity.setAdModuleId( new BigDecimal("1") );
+		entity.setIsactive( "Y" );
 	
+		return entity;
+	
+	}		
 }

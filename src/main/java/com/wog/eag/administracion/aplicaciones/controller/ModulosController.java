@@ -79,6 +79,17 @@ public class ModulosController {
 		return ResponseEntity.ok().body( gson.toJson("El registro ha sido eliminado.") );
 	}
 
+	@GetMapping("/modulos/defaultValues/{id}")
+	public ResponseEntity<ModulosDTO> setDefaultValue ( @PathVariable("id") long id ) {
+		
+		ModulosEntity entity = modulosService.setDefaultValue( new BigDecimal(id) );
+		
+		ModulosDTO dto = convertoEntityToDTO(entity);
+		
+		return ResponseEntity.ok().body( dto );
+		
+	}
+
 	private ModulosDTO convertoEntityToDTO(ModulosEntity entity) {
 		ModulosDTO dto = new ModulosDTO();
 		if (entity != null) {
